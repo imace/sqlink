@@ -3,6 +3,7 @@ package com.liuhaifeng.sqlink;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.liuhaifeng.sqlink.beans.Change;
@@ -164,6 +165,44 @@ public class TestSQLParser {
 		}
 	}
 
+	/**
+	 * 2013-03-24: Compile 1 million times Costs: 18574 @ MacBook pro (i7 2.2GHz
+	 * Quad, 4G Ram)
+	 * 
+	 * @throws SQLCompilerException
+	 * @throws IOException
+	 */
+	@Test
+	@Ignore
+	public void testTimmingSQLParser() throws SQLCompilerException, IOException {
+		SQLParser sqlParser = new SQLParser();
+		long ts = System.currentTimeMillis();
+		for (int i = 0; i < 50000; i++) {
+			sqlParser.compile(SELECT_1);
+			sqlParser.compile(SELECT_2);
+			sqlParser.compile(SELECT_3);
+			sqlParser.compile(SELECT_4);
+			sqlParser.compile(SELECT_5);
+			sqlParser.compile(SELECT_6);
+			sqlParser.compile(SELECT_7);
+			sqlParser.compile(SELECT_8);
+			sqlParser.compile(SELECT_9);
+			sqlParser.compile(SELECT_10);
+			sqlParser.compile(SELECT_11);
+			sqlParser.compile(SELECT_12);
+			sqlParser.compile(SELECT_13);
+			sqlParser.compile(SELECT_14);
+			sqlParser.compile(SELECT_15);
+			sqlParser.compile(SELECT_16);
+			sqlParser.compile(SELECT_17);
+			sqlParser.compile(SELECT_18);
+			sqlParser.compile(SELECT_19);
+			sqlParser.compile(SELECT_20);
+		}
+		long cost = System.currentTimeMillis() - ts;
+		System.out.print("Cost: " + cost);
+	}
+
 	private void dumpSentences(List<SQL> list) {
 		System.out.println();
 		System.out.println("======================================");
@@ -323,13 +362,13 @@ public class TestSQLParser {
 			System.out.println(tabs + "No pagination information.");
 			return;
 		}
-		System.out
-				.println(tabs + "start: " + (pagination.getStart() != null ? pagination
-						.getStart()
+		System.out.println(tabs
+				+ "start: "
+				+ (pagination.getStart() != null ? pagination.getStart()
 						: pagination.isStartHolder() ? "?" : null));
-		System.out
-				.println(tabs + "size: " + (pagination.getSize() != null ? pagination
-						.getSize()
+		System.out.println(tabs
+				+ "size: "
+				+ (pagination.getSize() != null ? pagination.getSize()
 						: pagination.isSizeHolder() ? "?" : null));
 	}
 
